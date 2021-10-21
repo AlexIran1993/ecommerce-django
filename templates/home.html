@@ -1,0 +1,56 @@
+<!--Extencion del codigo que proviene de base.html-->
+{% extends 'base.html' %}
+<!--Inidcacoin del contenido dinamico-->
+{% block content%}
+
+{% load static%}
+
+<!-- ========================= SECTION MAIN ========================= -->
+<section class="section-intro padding-y-sm">
+	<div class="container">
+
+		<div class="intro-banner-wrap">
+			<img src="{% static 'images/banners/banner01.jpg' %}" class="img-fluid rounded">
+		</div>
+
+	</div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION MAIN END// ========================= -->
+
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y-sm">
+	<div class="container">
+
+		<header class="section-heading">
+			<a href="{% url 'store' %}" class="btn btn-outline-primary float-right">Ver Todo</a>
+			<h3 class="section-title">Productos populares</h3>
+		</header><!-- sect-heading -->
+
+
+		<div class="row">
+
+			<!--Incio de ciclo for que pintara los productos en el template-->
+			{% for product in products %}
+
+			<div class="col-md-3">
+				<div class="card card-product-grid">
+					<a href="{{product.get_url}}" class="img-wrap"> <img src="{{product.images.url}}"> </a>
+					<figcaption class="info-wrap">
+						<a href="{{product.get_url}}" class="title">{{product.product_name}}</a>
+						<div class="price mt-1">{{product.price}}</div> <!-- price-wrap.// -->
+					</figcaption>
+				</div>
+			</div>
+
+			<!--Cierre del ciclo for-->
+			{% endfor %}
+		</div> <!-- row.// -->
+
+	</div><!-- container // -->
+</section>
+<!-- ========================= SECTION  END// ========================= -->
+</body>
+
+</html>
+<!--Cierre del contend-->
+{% endblock%}
