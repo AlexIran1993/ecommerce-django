@@ -10,7 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from ctypes import cast
+from email.policy import default
 from pathlib import Path
+#Herramineta usada para la seguridad de los archivos publicos
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#cz=a6-u%hv6n$y1o!4&6i=ebn_lwif6#-6#&@#k1l@@7zuvk('
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool, default = True)
 
-ALLOWED_HOSTS = []
+#Host del seervidor AWS.
+ALLOWED_HOSTS = ['http://ecommerce-env.eba-mwgrmipn.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
@@ -43,6 +48,12 @@ INSTALLED_APPS = [
     'accounts',
     #Registro de la app de store
     'store',
+    #Registro de la app de carts
+    'carts',
+    #Registro de la app de orders
+    'orders',
+    #Registro del honeypoy
+    'admin_honeypot',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +64,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_session_timeout.middleware.SessionTimeoutMiddleware',
 ]
+
+#Configuracino para finalizar la sessino en automatico
+#Tiempo que tardara en expirar la sesion
+SESSION_EXPIRE_SECONDS = 3600
+#La session expirara cuando el usuario deje de interactura con la aplicacion
+SESSION_EXPIRE_AFTER_LAS_ACTIVITY = True
+#Pagina de redireccino cuando expire la sesion
+SESSION_TIMEOUT_REDIRECT = 'accounts/login'
 
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -71,9 +91,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                #Registro de la funcion que almacena los links
+                #Registro de la funcion que almacena las categorias extraidas en context_processors.py
                 #Nombre de la app / Nombre del archivo / Nombre de la funcion
                 'category.context_processors.menu_links',
+                #Registro de la funcion counters para saber la cantidad de productos que tiene el carrito
+                'carts.context_processors.counter',
             ],
         },
     },
@@ -142,6 +164,20 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = BASE_DIR / 'media'
 #Variables usadas para los archivos mediafile
 MEDIA_URL = '/media/'
+
+
+#Libreria para la creacion de mensages de error personalizados.
+from django.contrib.messages import constants as messages
+MESSAGE_TAG = {
+    messages.ERROR : 'danger',
+}
+
+#Configuracion para el uso de los servidores de gmail
+EMAIL_HOST =config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 
 
 # Default primary key field type

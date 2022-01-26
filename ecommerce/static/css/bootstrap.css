@@ -4945,6 +4945,12 @@ a.badge-gray-light:focus, a.badge-gray-light.focus {
   color: #563108;
 }
 
+.alert-error{
+  color: #821b1b;
+  background-color: #fed6d6;
+  border-color: #fec6c6;
+}
+
 .alert-danger {
   color: #821b1b;
   background-color: #fed6d6;

@@ -1,7 +1,8 @@
+#Importacion de la clase Category.
 from .models import Category
 
 def menu_links(request):
-    #Lista de links que provienen de la base de datos
+    #Lista de las categorias registradas en base de datos.
     links = Category.objects.all()
-    #Retorno un Json con la lista de links
+    #Retorno un Json con la lista de categorias
     return dict(links = links)

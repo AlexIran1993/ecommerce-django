@@ -1,0 +1,17 @@
+<!--Validacion para saber si existe un mensaje de error.-->
+{% if messages %}
+<!--Estructura del template html-->
+<div id="message" class="container">
+    <!--Bucle para despejar los diferentes tipos de mensajes.-->
+    {% for message in messages %}
+    <!--Definicion del tipo de error-->
+    <!--Validacion de la propiedad tags.-->
+    <div {% if message.tags %} class="alert alert-{{message.tags}}" {% endif %} role="alert">
+        <!--En caso de que el mensaje sea importante se mostrara el texto de "importante:"-->
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %} importante: {% endif %}
+        <!--Despliegue del mensaje -->
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
