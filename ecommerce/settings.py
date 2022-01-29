@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool, default = True)
 
 #Host del seervidor AWS.
-ALLOWED_HOSTS = ['http://ecommerce-env.eba-mwgrmipn.us-west-2.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['http://ecommerce-env.eba-ixjnmvjx.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
