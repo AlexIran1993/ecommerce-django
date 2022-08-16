@@ -18,7 +18,7 @@ from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,7 +31,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', cast=bool, default = True)
 
 #Host del seervidor AWS.
-ALLOWED_HOSTS = ['ecommerce-env.eba-ixjnmvjx.us-west-2.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['ecommerce-env.eba-cvuq3vmk.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
@@ -55,6 +55,8 @@ INSTALLED_APPS = [
     'orders',
     #Registro del honeypoy
     'admin_honeypot',
+    #Libreria storgae
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -107,28 +109,28 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 #Modelo de autenticacion para que reconozca a Account como clase principal para el almacenamiento de usuarios.
 AUTH_USER_MODEL = 'accounts.Account'
 
+#DATABASES = {
+    #'default': {
+       # 'ENGINE': 'django.db.backends.postgresql',
+      #  'NAME': 'ebdb',
+     #   'USER': 'AlexIran',
+    #    'PASSWORD': 'Password1234$',
+   #     'HOST': 'aawcx84vktmeh9.cn6flh2irhxm.us-west-2.rds.amazonaws.com',
+  #      'PORT': 5432,
+ #   }
+#}
+
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if 'RDS_DB_NAME' in os.environ:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['RDS_DB_NAME'],
-            'USER': os.environ['RDS_USERNAME'],
-            'PASSWORD': os.environ['RDS_PASSWORD'],
-            'HOST': os.environ['RDS_HOSTNAME'],
-            'PORT': os.environ['RDS_PORT'],
-        }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

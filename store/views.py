@@ -1,7 +1,7 @@
 
 from msilib.schema import MsiAssembly
 from django.shortcuts import get_object_or_404, render, redirect
-from store.models import Product, ReviewRating
+from store.models import Product, ProductGallery, ReviewRating
 from category.models import Category
 from carts.models import CartItem
 from carts.views import _cart_id
@@ -110,12 +110,18 @@ def product_detail(request, category_slug, product_slug):
     #Traigo los comentarios hehcos a este producto
     reviews = ReviewRating.objects.filter(product_id = single_product.id, status = True)
 
+    #Query que obtendra la lista de imagenes ligada al producto
+    product_gallery = ProductGallery.objects.filter(product_id = single_product.id)
+    
+
     #Añado el resultado en un objeto Json
     context = {
         'single_product': single_product,
         'in_cart':in_cart,
         'orderproduct': orderproduct,
-        'reviews': reviews
+        'reviews': reviews,
+        #Collection de imagenes ligado al producto
+        'product_gallery': product_gallery
     }
 
     #Retorno del request al template product_details.html / Envio el Json Como parametro.

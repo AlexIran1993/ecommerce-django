@@ -1,6 +1,16 @@
 from django.contrib import admin
-from .models import Product, ReviewRating, Variation
+from .models import Product, ProductGallery, ReviewRating, Variation
+import admin_thumbnails
 # Register your models here.
+
+#Clase que pintara las imagenes de los productos dentro de un grid
+#Especifico cual sera el campo que tomara para imprimir la imagen.
+@admin_thumbnails.thumbnail('image')
+class ProductGalleryInline(admin.TabularInline):
+    #Señalizo el modelo que usare.
+    model = ProductGallery
+    extra = 1
+
 
 #Propiedades que se enlistaran el el grid de django
 class ProductAdmin(admin.ModelAdmin):
@@ -18,6 +28,8 @@ class ProductAdmin(admin.ModelAdmin):
         #El campo slug se llenara con la data de 'product_name'
         'slug' : ('product_name',)
     }
+    #Creo el grid con la clase ProductGalleryInline
+    inlines = [ProductGalleryInline]
 
 #Clase que contendra una lista con las propiedades que se mostraran en el grid del model Variations
 class VariationsAdmin(admin.ModelAdmin):
@@ -39,3 +51,5 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Variation, VariationsAdmin)
 #Registro de la entidad ReviewRating
 admin.site.register(ReviewRating)
+#Registro de la entidad productGallery
+admin.site.register(ProductGallery)

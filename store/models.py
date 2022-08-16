@@ -1,5 +1,7 @@
+from distutils.command import upload
 from itertools import product
 from typing import Counter
+from unittest.util import _MAX_LENGTH
 from django.db import models
 from django.db.models.base import Model
 from django.db.models.deletion import CASCADE
@@ -122,3 +124,11 @@ class ReviewRating(models.Model):
     #Campós visibles en el Grid de ReviewRating
     def __str__(self):
         return self.subject
+
+#Modelo para la colleccion de imaganes de los productos en el template product_details.html
+class ProductGallery(models.Model):
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to = 'store/products', max_length = 225)
+
+    def __str__(self):
+        return self.product.product_name
