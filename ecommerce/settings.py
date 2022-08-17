@@ -56,8 +56,6 @@ INSTALLED_APPS = [
     'orders',
     #Registro del honeypoy
     'admin_honeypot',
-    #Libreria storgae
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -172,7 +170,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+STATICFILES_DIRS = [
+    'ecommerce/static',
+]
 
 #Archivo que ayudara a manejar los archivos estaticos
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage' 

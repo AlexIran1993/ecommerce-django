@@ -4,7 +4,7 @@ from category.models import Category
 from carts.models import CartItem
 from carts.views import _cart_id
 #Libreria usada para la paginacion de productos
-from django.core.paginator import Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 #Libreria usada para la consulta
 from django.db.models import Q
 from .forms import ReviewForm
