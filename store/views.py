@@ -1,5 +1,3 @@
-
-from msilib.schema import MsiAssembly
 from django.shortcuts import get_object_or_404, render, redirect
 from store.models import Product, ProductGallery, ReviewRating
 from category.models import Category
