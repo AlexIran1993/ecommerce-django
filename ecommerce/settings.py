@@ -176,7 +176,7 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
 #Direccion donde se almacenaran los archivos mediadile
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT =  os.path.join('ecommerce/media')
 #Variables usadas para los archivos mediafile
 MEDIA_URL = '/media/'
 
