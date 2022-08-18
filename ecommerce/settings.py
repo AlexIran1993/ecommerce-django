@@ -173,7 +173,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = (os.path.join('ecommerce/static'),)
 
 #Archivo que ayudara a manejar los archivos estaticos
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
 
 
 #Direccion donde se almacenaran los archivos mediadile
