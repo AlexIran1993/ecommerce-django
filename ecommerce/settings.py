@@ -170,9 +170,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = [
-    'ecommerce/static',
-]
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'ecommerce/static'),)
 
 #Archivo que ayudara a manejar los archivos estaticos
 STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage' 
