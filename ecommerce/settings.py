@@ -10,13 +10,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
-from ctypes import cast
-from email.policy import default
+
 from pathlib import Path
 #Herramineta usada para la seguridad de los archivos publicos
 from decouple import config
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -29,10 +27,10 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 #Lista de urls que puede levantar el servidor 
-ALLOWED_HOSTS = ["127.0.0.1",".herokuapp.com"]
+ALLOWED_HOSTS = ['http://ecommerceapp-env.eba-ncpq22en.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
@@ -67,7 +65,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 #Configuracino para finalizar la sessino en automatico
@@ -109,28 +106,28 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 #Modelo de autenticacion para que reconozca a Account como clase principal para el almacenamiento de usuarios.
 AUTH_USER_MODEL = 'accounts.Account'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbecommerce',
-        'HOST': 'localhost',
-        'USER': 'ecommerceuseradmin',
-        'PASSWORD': 'ecommerce_admin',
-        'PORT': 5432,
-    }
-}
+#DATABASES = {
+#   'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'dbecommerce',
+#        'HOST': 'localhost',
+#        'USER': 'ecommerceuseradmin',
+#        'PASSWORD': 'ecommerce_admin',
+#        'PORT': 5432,
+#    }
+#}
 
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -170,22 +167,19 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
+STATICFILES_DIRS = [
+    'ecommerce/static',
+]
 
-#Archivo que ayudara a manejar los archivos estaticos
-STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 #Direccion donde se almacenaran los archivos mediadile
-MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR /'media'
 #Variables usadas para los archivos mediafile
 MEDIA_URL = '/media/'
 
-#Base de datos para desarrollo
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
-
-#Ejecucion del servidor en locañ
+#Ejecucion del servidor en local
 #./manage.py runserver --settings=ecommerce.local_settings
 
 #Libreria para la creacion de mensages de error personalizados.
