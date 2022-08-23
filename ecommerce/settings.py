@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 #Lista de urls que puede levantar el servidor 
-ALLOWED_HOSTS = ['http://ecommerceapp-env.eba-ncpq22en.us-west-2.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['http://ecommerce-env.eba-nms76rpp.us-west-2.elasticbeanstalk.com/']
 
 
 # Application definition
