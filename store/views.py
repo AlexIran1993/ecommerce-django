@@ -143,12 +143,15 @@ def search(request):
             #Contador de productso
             products_count=products.count()
             #Json con la lista y contador de los productso
-            context = {
-                'products':products,
-                'products_count': products_count,
-            }
-            #Llamado y enviado del json al template 
-            return render(request, 'store/store.html', context)
+    products=None
+    products_count=0
+    context = {
+        'products':products,
+        'products_count': products_count,
+    }
+
+    #Llamado y enviado del json al template 
+    return render(request, 'store/store.html', context)
 
 #Metodo def que procesara el formulario Comentario
 def submit_review(request, product_id):
