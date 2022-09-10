@@ -1,7 +1,4 @@
-from email import message
-from django.contrib.sites import requests
 from django.shortcuts import get_object_or_404, redirect, render
-from django.template import context
 from accounts.forms import RegistrationForm, UserForm, UserProfileForm
 from .models import Account, UserProfile
 from orders.models import Order
@@ -16,6 +13,8 @@ from django.core.mail import EmailMessage
 # Funciones necesarias para ligar el carrito de compras a la sesion del usuario
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
+import requests
+
 # Create your views here.
 # Metodo def para el regsitro de un nuevo usuaruio
 

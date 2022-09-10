@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models.deletion import CASCADE
 #Clase que representa a los productos en base de datos
 from store.models import Product, Variation
 from accounts.models import Account
@@ -18,7 +17,7 @@ class Cart(models.Model):
 #Clase para el prodcuto que se añadira al carrito
 class CartItem(models.Model):
     #Propiedad que se relacione con el usuario en sesion
-    user = models.ForeignKey(Account, on_delete=CASCADE, null=True)
+    user = models.ForeignKey(Account, on_delete=models.CASCADE, null=True)
     #Propiedad que represenatara al producto seleccionado para la compra
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     #Propiedad que representa al carrito de compras del usuario en session.

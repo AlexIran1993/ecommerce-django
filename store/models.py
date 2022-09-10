@@ -1,10 +1,4 @@
-from distutils.command import upload
-from itertools import product
-from typing import Counter
-from unittest.util import _MAX_LENGTH
 from django.db import models
-from django.db.models.base import Model
-from django.db.models.deletion import CASCADE
 #Instaciamiento de la clase Category
 from category.models import Category
 from django.urls import reverse

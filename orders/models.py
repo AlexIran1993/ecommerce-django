@@ -1,6 +1,4 @@
 from django.db import models
-from django.db.models.deletion import CASCADE, SET_NULL, ProtectedError
-from django.db.models.fields import FloatField
 from accounts.models import Account
 from store.models import Product, Variation
 # Create your models here.
@@ -32,7 +30,7 @@ class Order(models.Model):
     )
 
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
-    payment = models.ForeignKey(Payment, on_delete=SET_NULL, blank=True, null=True)
+    payment = models.ForeignKey(Payment, on_delete=models.SET_NULL, blank=True, null=True)
     order_number = models.CharField(max_length=20)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
@@ -45,7 +43,7 @@ class Order(models.Model):
     country = models.CharField(max_length=50)
     order_note = models.CharField(max_length=100, blank=True)
     order_total = models.FloatField()
-    tax = FloatField()
+    tax = models.FloatField()
     status = models.CharField(max_length=50, choices=STATUS, default='New')
     ip = models.CharField(blank=True, max_length=20)
     is_ordered = models.BooleanField(default=False)

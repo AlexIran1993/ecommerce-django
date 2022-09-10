@@ -30,7 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = True
 
 #Lista de urls que puede levantar el servidor 
-ALLOWED_HOSTS = ['http://ecommerceapp-env.eba-urysp2pv.us-west-2.elasticbeanstalk.com/']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -119,6 +119,17 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    'default':{
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'dbecommerce',
+#        'HOST': 'localhost',
+#        'USER': 'ecommerceuseradmin',
+#        'PASSWORD': 'ecommerce_admin',
+#        'PORT': 5432
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
