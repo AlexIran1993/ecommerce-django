@@ -15,6 +15,7 @@ from pathlib import Path
 #Herramineta usada para la seguridad de los archivos publicos
 from decouple import config
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
@@ -27,10 +28,10 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #Lista de urls que puede levantar el servidor 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", ".herokuapp.com"]
 
 
 # Application definition
@@ -65,6 +66,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django_session_timeout.middleware.SessionTimeoutMiddleware',
+    #Middleware para el manejo de archivos estaticos
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 #Configuracino para finalizar la sessino en automatico
@@ -113,23 +116,23 @@ AUTH_USER_MODEL = 'accounts.Account'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-#DATABASES = {
-#    'default':{
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'dbecommerce',
-#        'HOST': 'localhost',
-#        'USER': 'ecommerceuseradmin',
-#        'PASSWORD': 'ecommerce_admin',
-#        'PORT': 5432
+#1DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
 #}
+
+DATABASES = {
+    'default':{
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dbecommerce',
+        'HOST': 'localhost',
+        'USER': 'ecommerceuseradmin',
+        'PASSWORD': 'ecommerce_admin',
+        'PORT': 5432
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -167,8 +170,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 STATICFILES_DIRS = (os.path.join(BASE_DIR,'static'),)
 
@@ -199,3 +203,7 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#Base de datos usada en produccion
+db_from_env = dj_database_url.config(conn_max_age=500)
+#Actualizacion de la propiedad defualt de DATABASES para usar la base de datos en produccion.
+DATABASES["default"].update(db_from_env)
