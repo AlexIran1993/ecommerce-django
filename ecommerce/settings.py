@@ -116,23 +116,23 @@ AUTH_USER_MODEL = 'accounts.Account'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-#1DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
-#}
-
 DATABASES = {
-    'default':{
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbecommerce',
-        'HOST': 'localhost',
-        'USER': 'ecommerceuseradmin',
-        'PASSWORD': 'ecommerce_admin',
-        'PORT': 5432
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+#DATABASES = {
+#    'default':{
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'dbecommerce',
+#        'HOST': 'localhost',
+#        'USER': 'ecommerceuseradmin',
+#        'PASSWORD': 'ecommerce_admin',
+#        'PORT': 5432
+#    }
+#}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -192,11 +192,11 @@ MESSAGE_TAG = {
 }
 
 #Configuracion para el uso de los servidores de gmail
-EMAIL_HOST =config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST ='smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'alex.iran.source@gmail.com'
+EMAIL_HOST_PASSWORD = 'Kalash_47'
+EMAIL_USE_TLS = True
 
 
 # Default primary key field type
