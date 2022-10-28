@@ -12,7 +12,10 @@
                 <article class="card">
                     <header class="card-header">
                         <strong class="d-inline-block mr-3">Session inicida de: </strong>
-                        <span>{{user.full_name}}</span>
+                        <span>{{userprofile.user.full_name}}</span>
+                        {% if user.is_superadmin %}
+                            <h1>Super usuario</h1>
+                        {% endif %}
                     </header>
                     <div class="card-body">
                         <div class="row">
@@ -31,8 +34,8 @@
                                     <div class="card-body">
                                         <img src="{{userprofile.profile_picture.url}}" alt="Imagen de perfil"
                                             width="50" height="50" style="border-radius: 50%;">
-                                        <p class="mb-0">{{user.email}}</p>
-                                        <p>{{user.phone_numer}}</p>
+                                        <p class="mb-0">{{userprofile.user.email}}</p>
+                                        <p>{{userprofile.user.phone_numer}}</p>
                                     </div>
                                 </div>
                             </div>

@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
         'slug': ('category_name',)
     }
     #Elemetos que se mostraran el el grid de la lista de categorias
-    list_display = ('category_name', 'slug')
+    list_display = ('id','category_name', 'slug')
 
 #paso como parametro la clase CategoryAdmin
 admin.site.register(Category, CategoryAdmin)

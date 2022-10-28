@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="section-conten padding-y bg">
+    {% include 'includes/alerts.html' %}
+    <div class="container">
+        <div class="row">
+            {% include 'includes/dashboard_sidebar.html'%}
+            <main class="col-md-9">
+                <article class="card">
+                        <header class="card-header">
+                            <strong class="d-inline-block mr-3">Añadir Nuevo Producto</strong>
+                        </header>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="{% url 'nuevo_producto' %}" method="POST" enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="">Nombre Del Producto</label>
+                                                {{ form.product_name }}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Precio</label>
+                                                {{ form.price }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="">Imagen del producto</label>
+                                                {{ form.images }}
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="">Stock del producto</label>
+                                                {{ form.stock }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="">Categoria</label>
+                                                {{ form.category }}
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="">Descripcion</label>
+                                                {{ form.decription }}
+                                            </div>
+                                        </div>
+                                            <input type="submit" name="" value="Guardar" class="btn btn-primary col-md-12">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                </article>
+            </main>
+        </div>
+    </div>
+</section>
+{% endblock %}

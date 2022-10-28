@@ -1,12 +1,9 @@
 {% autoescape off %}
-
-    <!--Mensaje que aparaceera en la body del correo-->
     Hola {{user.first_name}},
 
     Este correo es enviado con la finalidad de activar tu cuenta en eCommerce, haz click en 
     el siguiente enlace que te redirijira a una pagina para completar este proceso.
 
-    <!--Dominio de activacion-->
     http://{{domain}}{% url 'activate' uidb64=uid token=token %}
 
     Saludos de Alexis Iran!

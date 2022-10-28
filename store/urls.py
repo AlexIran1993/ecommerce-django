@@ -15,7 +15,7 @@ urlpatterns = [
         #Nombre del path
         name="products_by_category"
     ),
-
+    path('new_product/', views.nuevo_producto, name="nuevo_producto"),
     #Path con el slug de la categoria y el producto
     path('category/<slug:category_slug>/<slug:product_slug>/', views.product_detail, name='product_detail'),
     #Path para el campo de busqueda 

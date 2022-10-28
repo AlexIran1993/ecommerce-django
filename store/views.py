@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import get_object_or_404, render, redirect
 from store.models import Product, ProductGallery, ReviewRating
 from category.models import Category
@@ -7,9 +8,10 @@ from carts.views import _cart_id
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 #Libreria usada para la consulta
 from django.db.models import Q
-from .forms import ReviewForm
+from .forms import ReviewForm, ProductForm
 from django.contrib import messages
 from orders.models import OrderProducts
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 #metodo def que recive el request del cliente y una propiedad que representa al slug que por el momento es nulo.
@@ -73,6 +75,46 @@ def store(request, category_slug=None):
 
     #Envio como parametro el objeto Json.
     return render(request, 'store/store.html', context )
+
+
+@login_required(login_url="login")
+def nuevo_producto(request):
+    if request.user.is_admin == False:
+        messages.warning(request, 'NO TIENES ACCESO A ESTE NIVEL')
+        return render(request, 'accounts/dashboard.html')
+        
+    form = ProductForm()
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            product_name = form.cleaned_data['product_name']
+            decription = form.cleaned_data['decription']
+            price = form.changed_data['price']
+            images = form.cleaned_data['images']
+            stock = form.changed_data['stock']
+            category = form.cleaned_data['category']
+
+            sin_caracters = re.sub(r"[^\w\s]", '', product_name)
+            slug = re.sub(r"\s+", "-", sin_caracters)
+
+            producto = Product.objects.create(
+                product_name = product_name,
+                decription = decription,
+                price = price,
+                images = images,
+                stock = stock,
+                category = category,
+                slug = slug.lower()
+            )
+            producto.save()
+            messages.success(request, 'El producto ' + product_name + ' se ha creado exitosamente.')
+        else:
+             messages.error(request, 'El producto se ha creado exitosamente.')
+
+    context ={
+        'form': form
+    }
+    return render(request,'store/new_product.html', context)
 
 #Metodo def para el template del detallado del producto
 #Parametros que llegan: request del cliente, valor slug de la categoria y valor slug del producto

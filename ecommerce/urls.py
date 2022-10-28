@@ -24,6 +24,7 @@ from django.conf import settings
 #Arreglo de paths con las diferentes apps que componnen al eCommerce
 urlpatterns = [
     path('securelogin/', admin.site.urls),
+    path('category/', include('category.urls')),
     path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     #Path para señalar la pagina de inicio
     path(

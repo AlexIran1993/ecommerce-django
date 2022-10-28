@@ -5,6 +5,10 @@
         <a class="list-group-item {% if '/my_orders/' in request.path%} active {% endif %}" href="{% url 'my_orders' %}"> Mis Ordenes </a>
         <a class="list-group-item{% if '/edit_profile/' in request.path%} active {% endif %}" href="{% url 'edit_profile' %}"> Editar Perfil </a>
         <a class="list-group-item{% if '/change_password/' in request.path%} active {% endif %}" href="{% url 'change_password' %}">Cambiar Password </a>
+        {% if request.user.is_superadmin%}
+        <a class="list-group-item{% if '/new_category/' in request.path%} active {% endif %}" href="{% url 'nueva_categoria' %}">Crear Nueva Categoria</a>
+        <a class="list-group-item{% if '/new_product/' in request.path%} active {% endif %}" href="{% url 'nuevo_producto' %}">Añadir Productos</a>
+        {% endif %}
     </ul>
     <br>
     <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span

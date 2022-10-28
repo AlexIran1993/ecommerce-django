@@ -93,13 +93,11 @@ class Account(AbstractBaseUser):
         # Este def se ejecutara en caso de que is_admin sea true.
         return self.is_admin
 
-    # En caso de ser administrador que tenga acceso a los modulos
+    #En caso de ser administrador que tenga acceso a los modulos
     def has_module_perms(self, add_label):
         return True
 
 # Clase usada para editar la data de los usuarios registrados en Django
-
-
 class UserProfile(models.Model):
     # Clase con relacino uno a uno con la clase Account
     user = models.OneToOneField(Account, on_delete=models.CASCADE)

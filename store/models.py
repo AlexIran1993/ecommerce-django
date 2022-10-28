@@ -18,7 +18,7 @@ class Product(models.Model):
     #Precio del producto
     price = models.IntegerField()
     #Imagen del producto / Direccion donde se alamacenara la imagen
-    images  =models.ImageField(upload_to = 'photos/products')
+    images = models.ImageField(upload_to = 'photos/products', blank = True)
     #Verificacion de productos en stock
     stock = models.IntegerField()
     #Verificacion de si el producto esta en existencia

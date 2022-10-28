@@ -43,10 +43,11 @@ def register(request):
             # Almacenamieto del usuario en base de datos
             user.save()
 
-            #Creacion de unnuevo registro en la tabla UserProfile ligado a este nuevo usuario
+            #Creacion de un nuevo registro en la tabla UserProfile ligado a este nuevo usuario
             profile = UserProfile()
             profile.user_id = user.id
             profile.profile_picture = 'defualt/defualt-user.png'
+            profile.save()
 
             # Proceso de activacion del usuario
             current_site = get_current_site(request)
@@ -234,14 +235,13 @@ def dashboard(request):
     # Extraccion de la cantidad de ordenes
     orders_count = orders.count()
 
-    #Extraccion de la imagen de perfil del usuairo
+    #Extraccion del perfil del usuario
     userprofile = UserProfile.objects.get(user_id = request.user.id)
-
-    # Objeto Json con la data que sera enviada al template dashboard.html
     context = {
         'orders_count': orders_count,
         'userprofile': userprofile
     }
+    # Objeto Json con la data que sera enviada al template dashboard.html
     return render(request, 'accounts/dashboard.html', context)
 
 # Metodo para enviar el email de la restauracion del password
@@ -370,6 +370,7 @@ def edit_profile(request):
     if request.method == 'POST':
         # Match de la data request.user con el formulario UserForm
         user_form = UserForm(request.POST, instance=request.user)
+        
         # Match de la data de userprofile con el formulario de UserProfileForm
         profile_form = UserProfileForm(
             request.POST, request.FILES, instance=userprofile)
@@ -380,6 +381,7 @@ def edit_profile(request):
             profile_form.save()
             messages.success(request, 'Su informacion fue guardada con exito')
             return redirect('edit_profile')
+            
     else:
         user_form = UserForm(instance=request.user)
         profile_form = UserProfileForm(instance=userprofile)
